@@ -4,7 +4,7 @@ date_default_timezone_set("America/Lima");
 
 $user = "modulo6";
 $password = "modulo6";
-$dbname = "tcs2";
+$dbname = "tcs2bk";
 $port = "5432";
 $host = "159.65.230.188";
 
