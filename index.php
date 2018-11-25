@@ -40,14 +40,64 @@ switch ($hoy['weekday']) {
 		$dia='';
 		break;
 }
+$rest = substr("abcdef", -1);    // devuelve "f"
 
-$query = "select * from public.t_asistencia_postgrado  where dt_dia ='$dia'";
+
+//$query = "select * from public.t_asistencia_postgrado  where dt_dia ='$dia'";
+$query = "select * from public.t_asistencia_postgrado where dt_dia ='$dia' ";
 
 $resultado = pg_query($conexion, $query) or die("Error en la Consulta SQL");
 
 $numReg = pg_num_rows($resultado);
 ?>
 
+<?php
+function calcula_semestre($valorIngresado) {
+	switch ($valorIngresado) {
+		case 'ene.':
+			$numeromes=1;
+			break;
+		case 'feb.':
+			$numeromes=2;
+			break;
+		case 'mar.':
+			$numeromes=3;
+			break;
+		case 'abr.':
+			$numeromes=4;
+			break;
+		case 'may.':
+			$numeromes=5;
+			break;
+		case 'jun.':
+			$numeromes=6;
+			break;
+		case 'jul.':
+			$numeromes=7;
+			break;
+		case 'ago.':
+			$numeromes=8;
+			break;
+		case 'sept.':
+			$numeromes=9;
+			break;
+		case 'oct.':
+			$numeromes=10;
+			break;
+		case 'nov.':
+			$numeromes=11;
+			break;
+		case 'dic.':
+			$numeromes=12;
+			break;
+		default:
+			$numeromes='No registrado';
+			break;
+	}
+	return $numeromes;
+	//endswitch;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -134,27 +184,63 @@ $numReg = pg_num_rows($resultado);
 
 					  <tr>
 						<th>#</th>
+						<th>Semestre</th>
+						<th>Periodo</th>
+						<th>Programa</th>
 					    <th>Docente</th>
 					    <th>Curso</th>
-					    <th>Grupo</th>
 					    <th>Aula</th>
+						<th>Piso</th>
 					    <th>Horario</th>
 					    <th>Pabellón</th>
+						<th>Estado</th>
+						<th>Observación</th>
 					  </tr>
 				  <?php 
 					if($numReg>0){
 						$i=0;
 						while ($fila=pg_fetch_array($resultado)) {
-						$i++;
-						echo "<tr>";
-						echo "<td>".$i."</td>";
-						echo "<td>".$fila['vc_docente']."</td>";
-						echo "<td>".$fila['vc_curso']."</td>";
-						echo "<td>"."</td>";
-						echo "<td>".$fila['vc_aula']."</td>";
-						echo "<td>".$fila['vc_hora_inicio']." - ".$fila['vc_hora_fin']."</td>";
-						echo "<td>".$fila['vc_pabellon']."</td>";
-						echo "</tr>";
+							//aumentado
+							$fechaComparada = $fila['dt_fecha_inicio'];
+							if($fechaComparada == ''){
+								$numerofecha2 = 13;
+							}else{
+								$fechas = explode("-", $fechaComparada);
+								$numerofecha2 = calcula_semestre($fechas[1]);
+							}
+							if($numerofecha2<12 & $numerofecha2>6){
+								$semestrecalculado = date("Y")."-II";
+							}else{
+								if($numerofecha2==13){
+									$semestrecalculado = "No registrado";
+								}else{
+									$semestrecalculado = date("Y")."-I";
+								}
+							}
+							if(date("m")<6){
+								$semsis = date("Y")."-I";
+							}else{
+								$semsis = date("Y")."-II";
+							}
+							
+							if($semsis==$semestrecalculado){
+								$i++;
+								echo "<tr>";
+								echo "<td>".$i."</td>";
+								echo "<td>".$semestrecalculado."</td>";
+								echo "<td>".$fila['dt_fecha_inicio']." - ".$fila['dt_fecha_fin']."</td>";
+								echo "<td>".$fila['vc_programa']."</td>";
+								echo "<td>".$fila['vc_docente']."</td>";
+								echo "<td>".$fila['vc_curso']."</td>";
+								echo "<td>".$fila['vc_aula']."</td>";
+								echo "<td>".$fila['nu_piso']."</td>";
+								echo "<td>".$fila['vc_hora_inicio']." - ".$fila['vc_hora_fin']."</td>";
+								echo "<td>".$fila['vc_pabellon']."</td>";
+								echo "<td>".$fila['vc_estado']."</td>";
+								echo "<td>".$fila['vc_estado']."</td>";
+								echo "</tr>";
+							}							
+							
 						}
 					}
 					?>
