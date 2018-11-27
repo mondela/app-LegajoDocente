@@ -12,23 +12,6 @@ $cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pas
 
 $conexion = pg_connect($cadenaConexion) or die("Error en la Conexión: ".pg_last_error());
 
-if(isset($_POST['nu_id'])){
-	$id=$_POST['nu_id'];
-	$aula=$_POST['aula'];
-	$piso=$_POST['piso'];
-	$pabellon=$_POST['pabellon'];
-	$estado=$_POST['estado'];
-	$observacion=$_POST['observacion'];
-	$sql="update public.t_asistencia_postgrado 
-			 set vc_aula = '$aula',
-				nu_piso = '$piso',
-				vc_pabellon = '$pabellon',
-				vc_estado = '$estado',
-				vc_observacion = '$observacion'
-			 where nu_id ='$id'";
-	$resultado = pg_query($conexion, $sql);
-}
-
 $hoy=getdate();
 //$hoy['weekday']='Sunday';
 switch ($hoy['weekday']) {
@@ -57,14 +40,64 @@ switch ($hoy['weekday']) {
 		$dia='';
 		break;
 }
+$rest = substr("abcdef", -1);    // devuelve "f"
 
-$query = "select * from public.t_asistencia_postgrado  where dt_dia ='$dia' order by nu_id";
+
+//$query = "select * from public.t_asistencia_postgrado  where dt_dia ='$dia'";
+$query = "select * from public.t_asistencia_postgrado where dt_dia ='$dia' ";
 
 $resultado = pg_query($conexion, $query) or die("Error en la Consulta SQL");
 
 $numReg = pg_num_rows($resultado);
 ?>
 
+<?php
+function calcula_semestre($valorIngresado) {
+	switch ($valorIngresado) {
+		case 'ene.':
+			$numeromes=1;
+			break;
+		case 'feb.':
+			$numeromes=2;
+			break;
+		case 'mar.':
+			$numeromes=3;
+			break;
+		case 'abr.':
+			$numeromes=4;
+			break;
+		case 'may.':
+			$numeromes=5;
+			break;
+		case 'jun.':
+			$numeromes=6;
+			break;
+		case 'jul.':
+			$numeromes=7;
+			break;
+		case 'ago.':
+			$numeromes=8;
+			break;
+		case 'sept.':
+			$numeromes=9;
+			break;
+		case 'oct.':
+			$numeromes=10;
+			break;
+		case 'nov.':
+			$numeromes=11;
+			break;
+		case 'dic.':
+			$numeromes=12;
+			break;
+		default:
+			$numeromes='No registrado';
+			break;
+	}
+	return $numeromes;
+	//endswitch;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -75,13 +108,11 @@ $numReg = pg_num_rows($resultado);
 	<title>Asistencia Docente</title>
 	<link rel="favicon" href="assets/images/favicon.png">
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="assets/css/bootstrap.css">
-	<!--<link rel="stylesheet" href="assets/css/bootstrap.min.css">-->
-	
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 	<!-- Custom styles for our template -->
-	<!--<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">-->
-	<!--<link rel="stylesheet" href="assets/css/style.css">-->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
+	<link rel="stylesheet" href="assets/css/style.css">
 	<!-- Custom styles for our digital clock -->
 	<link rel="stylesheet" href="assets/css/clock.css">
 	<link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
@@ -108,7 +139,6 @@ $numReg = pg_num_rows($resultado);
 	    background-color: #dddddd;
 	}
 	</style>
-	<script src="assets/js/jquery_cb.js"></script>
 </head>
 
 <body>
@@ -155,102 +185,62 @@ $numReg = pg_num_rows($resultado);
 					  <tr>
 						<th>#</th>
 						<th>Semestre</th>
+						<th>Periodo</th>
 						<th>Programa</th>
-						<th>Docente</th>
-						<th>Curso</th>
-						<th>Aula</th>
+					    <th>Docente</th>
+					    <th>Curso</th>
+					    <th>Aula</th>
 						<th>Piso</th>
 					    <th>Horario</th>
 					    <th>Pabellón</th>
-						<th>Periodo</th>
 						<th>Estado</th>
 						<th>Observación</th>
-						<th>Editar</th>
 					  </tr>
 				  <?php 
 					if($numReg>0){
 						$i=0;
 						while ($fila=pg_fetch_array($resultado)) {
-						$i++;
-						echo "<tr>";
-						echo "<td>".$i."</td>";
-						echo "<td>"."2018-2"."</td>";
-						echo "<td>".$fila['vc_programa']."</td>";
-						echo "<td>".$fila['vc_docente']."</td>";
-						echo "<td>".$fila['vc_curso']."</td>";
-						echo "<td>".$fila['vc_aula']."</td>";
-						echo "<td>".$fila['nu_piso']."</td>";
-						echo "<td>".$fila['vc_hora_inicio']." - ".$fila['vc_hora_fin']."</td>";
-						echo "<td>".$fila['vc_pabellon']."</td>";
-						echo "<td>".$fila['dt_fecha_inicio']." - ".$fila['dt_fecha_fin']."</td>";
-						echo "<td>".$fila['vc_estado']."</td>";
-						echo "<td>".$fila['vc_observacion']."</td>";
-						echo '<td>'.'<a href="#a'.$fila['nu_id'].'" title="Editar curso" role="button" class="btn btn-app" data-toggle="modal"><i class="fa fa-edit"></i></a>'.'</td>';
-						echo
-						'<div id="a'.$fila['nu_id'].'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <form name="form2" method="post" action="">
-                            	<input type="hidden" name="nu_id" value="'.$fila['nu_id'].'">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Editar curso</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row-fluid">
-                                        <div class="span6">
-                                        	<strong>Curso: '.mb_convert_case($fila['vc_curso'], MB_CASE_TITLE, "utf8").'</strong><br><br>
-                                            <strong>Aula</strong><br>
-                                            <input type="text" name="aula" autocomplete="off" required value="'.$fila['vc_aula'].'"><br> 
-                                            <strong>Piso</strong><br>'.
-                                            '<select name="piso" required>
-                                                <option value="">Selecciona</option>';
-                                                echo '<option value="1" ';
-                                                if($fila['nu_piso']=="1") echo 'selected';
-                                                echo '>1</option>';
-                                                echo '<option value="2" ';
-                                                if($fila['nu_piso']=="2") echo 'selected';
-                                                echo '>2</option>';
-                                                echo '<option value="3" ';
-                                                if($fila['nu_piso']=="3") echo 'selected';
-                                                echo '>3</option>';
-                                            echo '</select><br>';    
-                                            echo '<strong>Pabellón</strong><br>';
-                                            echo '<select name="pabellon" required>
-                                                <option value="">Selecciona</option>';
-                                                echo '<option value="ANT" ';
-                                                if($fila['vc_pabellon']=="ANT") echo 'selected';
-                                                echo '>ANT</option>';
-                                                echo '<option value="NUE" ';
-                                                if($fila['vc_pabellon']=="NUE") echo 'selected';
-                                                echo '>NUE</option>';
-                                            echo '</select><br>';
-                                            echo '</div>
-                                        <div class="span6">
-                                        	<strong>Docente: '.mb_convert_case($fila['vc_docente'], MB_CASE_TITLE, "utf8").'</strong><br><br>';
-                                        	echo '<strong>Estado</strong><br>';
-                                            echo '<select name="estado" required>
-                                                <option value="">Selecciona</option>';
-                                                echo '<option value="NO INICIADO" ';
-                                                if(strtoupper($fila['vc_estado'])=="NO INICIADO") echo 'selected';
-                                                echo '>NO INICIADO</option>';
-                                                echo '<option value="EN CURSO" ';
-                                                if(strtoupper($fila['vc_estado'])=="EN CURSO") echo 'selected';
-                                                echo '>EN CURSO</option>';
-                                                echo '<option value="FINALIZADO" ';
-                                                if(strtoupper($fila['vc_estado'])=="FINALIZADO") echo 'selected';
-                                                echo '>FINALIZADO</option>';
-                                            echo '</select><br>';
-                                            echo '<strong>Observación</strong><br>
-                                            <input type="text" name="observacion" autocomplete="off" value="'.$fila['vc_observacion'].'">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-remove"></i> <strong>Cerrar</strong></button>
-                                    <button type="submit" class="btn btn-primary" ><i class="fa fa-ok"></i> <strong>Guardar</strong></button>
-                                </div>
-                            </form>
-                        </div>';
-						echo "</tr>";
+							//aumentado
+							$fechaComparada = $fila['dt_fecha_inicio'];
+							if($fechaComparada == ''){
+								$numerofecha2 = 13;
+							}else{
+								$fechas = explode("-", $fechaComparada);
+								$numerofecha2 = calcula_semestre($fechas[1]);
+							}
+							if($numerofecha2<12 & $numerofecha2>6){
+								$semestrecalculado = date("Y")."-II";
+							}else{
+								if($numerofecha2==13){
+									$semestrecalculado = "No registrado";
+								}else{
+									$semestrecalculado = date("Y")."-I";
+								}
+							}
+							if(date("m")<6){
+								$semsis = date("Y")."-I";
+							}else{
+								$semsis = date("Y")."-II";
+							}
+							
+							if($semsis==$semestrecalculado){
+								$i++;
+								echo "<tr>";
+								echo "<td>".$i."</td>";
+								echo "<td>".$semestrecalculado."</td>";
+								echo "<td>".$fila['dt_fecha_inicio']." - ".$fila['dt_fecha_fin']."</td>";
+								echo "<td>".$fila['vc_programa']."</td>";
+								echo "<td>".$fila['vc_docente']."</td>";
+								echo "<td>".$fila['vc_curso']."</td>";
+								echo "<td>".$fila['vc_aula']."</td>";
+								echo "<td>".$fila['nu_piso']."</td>";
+								echo "<td>".$fila['vc_hora_inicio']." - ".$fila['vc_hora_fin']."</td>";
+								echo "<td>".$fila['vc_pabellon']."</td>";
+								echo "<td>".$fila['vc_estado']."</td>";
+								echo "<td>".$fila['vc_estado']."</td>";
+								echo "</tr>";
+							}							
+							
 						}
 					}
 					?>
@@ -265,8 +255,5 @@ $numReg = pg_num_rows($resultado);
 	<script src="assets/js/custom.js"></script> -->
 	<!-- JavaScript lib for our digital clock -->
 	<script src="assets/js/clock.js"></script>
-	<script src="assets/js/bootstrap-transition.js"></script>
-    <script src="assets/js/bootstrap-modal.js"></script>
-    
 </body>
 </html>
