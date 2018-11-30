@@ -199,7 +199,7 @@ $numReg = pg_num_rows($resultado);
                                         <div class="span6">
                                         	<strong>Curso: '.mb_convert_case($fila['vc_curso'], MB_CASE_TITLE, "utf8").'</strong><br><br>
                                             <strong>Aula</strong><br>
-                                            <input type="text" name="aula" autocomplete="off" required value="'.$fila['vc_aula'].'"><br> 
+                                            <input type="text" maxlength="14" name="aula" autocomplete="off" required value="'.$fila['vc_aula'].'"><br> 
                                             <strong>Piso</strong><br>'.
                                             '<select name="piso" required>
                                                 <option value="">Selecciona</option>';
@@ -240,7 +240,8 @@ $numReg = pg_num_rows($resultado);
                                                 echo '>FINALIZADO</option>';
                                             echo '</select><br>';
                                             echo '<strong>Observación</strong><br>
-                                            <input type="text" name="observacion" autocomplete="off" value="'.$fila['vc_observacion'].'">
+											<!-- <input type="text" name="observacion" autocomplete="off" value="'.$fila['vc_observacion'].'"> -->
+											<textarea name="observacion" id="" cols="1" rows="4" autocomplete="off" value="'.$fila['vc_observacion'].'" ></textarea>
                                         </div>
                                     </div>
                                 </div>
