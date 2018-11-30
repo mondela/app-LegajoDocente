@@ -125,7 +125,7 @@ $numReg = pg_num_rows($resultado);
 					<div class="wrap">
 						<center>
 						<div class="widget">
-							<div class="fecha">
+							<div class="fechaSASASAS">
 								<p id="diaSemana" class="diaSemana">Jueves</p>
 								<p id="dia" class="dia">20 </p>
 								<p>de </p>
