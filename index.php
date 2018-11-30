@@ -198,7 +198,7 @@ $numReg = pg_num_rows($resultado);
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h3 id="myModalLabel">Editar curso</h3>
                                 </div>
-                                <div class="modal-body">
+                                <!--div class="modal-body">
                                     <div class="row-fluid">
                                         <div class="span6">
                                         	<strong>Curso: '.mb_convert_case($fila['vc_curso'], MB_CASE_TITLE, "utf8").'</strong><br><br>
@@ -248,7 +248,7 @@ $numReg = pg_num_rows($resultado);
 											<textarea name="observacion" id="" cols="1" rows="4" autocomplete="off" value="'.$fila['vc_observacion'].'" ></textarea>
                                         </div>
                                     </div>
-                                </div>
+                                </div-->
                                 <!--div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-remove"></i> <strong>Cerrar</strong></button>
                                     <button type="submit" class="btn btn-primary" ><i class="fa fa-ok"></i> <strong>Guardar</strong></button>
