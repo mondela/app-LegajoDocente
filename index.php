@@ -157,7 +157,7 @@ $numReg = pg_num_rows($resultado);
 
 					  <tr>
 						<th>#</th>
-						<th>Semestre111111111111</th>
+						<th>Semestre</th>
 						<th>Programa</th>
 						<th>Docente</th>
 						<th>Curso</th>
