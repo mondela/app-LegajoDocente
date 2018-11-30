@@ -189,7 +189,7 @@ $numReg = pg_num_rows($resultado);
 						echo "<td>".$fila['dt_fecha_inicio']." - ".$fila['dt_fecha_fin']."</td>";
 						echo "<td>".$fila['vc_estado']."</td>";
 						echo "<td>".$fila['vc_observacion']."</td>";
-						//echo '<td>'.'<a href="#a'.$fila['nu_id'].'" title="Editar curso" role="button" class="btn btn-app" data-toggle="modal"><i class="fa fa-edit"></i></a>'.'</td>';
+						echo '<td>'.'<a href="#a'.$fila['nu_id'].'" title="Editar curso" role="button" class="btn btn-app" data-toggle="modal"><i class="fa fa-edit"></i></a>'.'</td>';
 						echo
 						'<div id="a'.$fila['nu_id'].'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <form name="form2" method="post" action="">
@@ -249,10 +249,10 @@ $numReg = pg_num_rows($resultado);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
+                                <!--div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-remove"></i> <strong>Cerrar</strong></button>
                                     <button type="submit" class="btn btn-primary" ><i class="fa fa-ok"></i> <strong>Guardar</strong></button>
-                                </div>
+                                </div-->
                             </form>
                         </div>';
 						echo "</tr>";
