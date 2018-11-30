@@ -74,7 +74,7 @@ $numReg = pg_num_rows($resultado);
 	<meta name="author" content="webThemez.com">
 	<title>Asistencia Docente</title>
 	<link rel="favicon" href="assets/images/favicon.png">
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 	<!--<link rel="stylesheet" href="assets/css/bootstrap.min.css">-->
 	
@@ -84,7 +84,7 @@ $numReg = pg_num_rows($resultado);
 	<!--<link rel="stylesheet" href="assets/css/style.css">-->
 	<!-- Custom styles for our digital clock -->
 	<link rel="stylesheet" href="assets/css/clock.css">
-	<link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
 	<!--link href="assets/css/oswald.css" rel="stylesheet" type="text/css"-->
 	
 
@@ -156,7 +156,7 @@ $numReg = pg_num_rows($resultado);
 
 					  <tr>
 						<th>#</th>
-						<th>SemestreQQQQQQQQQQQQQQQQ</th>
+						<th>Semestre111111111111</th>
 						<th>Programa</th>
 						<th>Docente</th>
 						<th>Curso</th>
