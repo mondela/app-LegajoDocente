@@ -85,6 +85,8 @@ $numReg = pg_num_rows($resultado);
 	<!-- Custom styles for our digital clock -->
 	<link rel="stylesheet" href="assets/css/clock.css">
 	<link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
+	<!--link href="assets/css/oswald.css" rel="stylesheet" type="text/css"-->
+	
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
