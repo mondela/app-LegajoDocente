@@ -74,8 +74,8 @@ $numReg = pg_num_rows($resultado);
 	<meta name="author" content="webThemez.com">
 	<title>Asistencia Docente</title>
 	<link rel="favicon" href="assets/images/favicon.png">
-	<!--link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"-->
-	<link rel="stylesheet" media="screen" href="http://allfont.es/allfont.css?fonts=open-sans">
+	<link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<!--link rel="stylesheet" media="screen" href="http://allfont.es/allfont.css?fonts=open-sans"-->
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 	<!--<link rel="stylesheet" href="assets/css/bootstrap.min.css">-->
 	
@@ -85,8 +85,8 @@ $numReg = pg_num_rows($resultado);
 	<!--<link rel="stylesheet" href="assets/css/style.css">-->
 	<!-- Custom styles for our digital clock -->
 	<link rel="stylesheet" href="assets/css/clock.css">
-	<!--link href="https://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css"-->
-	<link href="http://allfont.es/allfont.css?fonts=open-sans" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
+	<!--link href="http://allfont.es/allfont.css?fonts=open-sans" rel="stylesheet" type="text/css"-->
 	<!--link href="assets/css/oswald.css" rel="stylesheet" type="text/css"-->
 	
 
