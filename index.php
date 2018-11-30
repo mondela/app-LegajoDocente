@@ -194,11 +194,11 @@ $numReg = pg_num_rows($resultado);
 						'<div id="a'.$fila['nu_id'].'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <form name="form2" method="post" action="">
                             	<input type="hidden" name="nu_id" value="'.$fila['nu_id'].'">
-                                <!--div class="modal-header">
+                                <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h3 id="myModalLabel">Editar curso</h3>
-                                </div-->
-                                <!--div class="modal-body">
+                                </div>
+                                <div class="modal-body">
                                     <div class="row-fluid">
                                         <div class="span6">
                                         	<strong>Curso: '.mb_convert_case($fila['vc_curso'], MB_CASE_TITLE, "utf8").'</strong><br><br>
@@ -248,11 +248,11 @@ $numReg = pg_num_rows($resultado);
 											<textarea name="observacion" id="" cols="1" rows="4" autocomplete="off" value="'.$fila['vc_observacion'].'" ></textarea>
                                         </div>
                                     </div>
-                                </div-->
-                                <!--div class="modal-footer">
+                                </div>
+                                <div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-remove"></i> <strong>Cerrar</strong></button>
                                     <button type="submit" class="btn btn-primary" ><i class="fa fa-ok"></i> <strong>Guardar</strong></button>
-                                </div-->
+                                </div>
                             </form>
                         </div>';
 						echo "</tr>";
