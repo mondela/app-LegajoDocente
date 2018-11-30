@@ -194,10 +194,10 @@ $numReg = pg_num_rows($resultado);
 						'<div id="a'.$fila['nu_id'].'" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <form name="form2" method="post" action="">
                             	<input type="hidden" name="nu_id" value="'.$fila['nu_id'].'">
-                                <div class="modal-header">
+                                <!--div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h3 id="myModalLabel">Editar curso</h3>
-                                </div>
+                                </div-->
                                 <!--div class="modal-body">
                                     <div class="row-fluid">
                                         <div class="span6">
